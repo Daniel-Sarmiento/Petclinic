@@ -1,0 +1,14 @@
+-------------------------------------------------------------------------------
+Test set: org.springframework.samples.petclinic.service.ClinicServiceTests
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 6.162 s <<< FAILURE! - in org.springframework.samples.petclinic.service.ClinicServiceTests
+shouldFindVets(org.springframework.samples.petclinic.service.ClinicServiceTests)  Time elapsed: 0.07 s  <<< ERROR!
+org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [select vet0_.id as id1_6_, vet0_.first_name as first_na2_6_, vet0_.last_name as last_nam3_6_, vet0_.business_hours as business4_6_, vet0_.telephone as telephon5_6_ from vets vet0_]; nested exception is org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at org.springframework.samples.petclinic.service.ClinicServiceTests.shouldFindVets(ClinicServiceTests.java:188)
+Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at org.springframework.samples.petclinic.service.ClinicServiceTests.shouldFindVets(ClinicServiceTests.java:188)
+Caused by: java.sql.SQLSyntaxErrorException: usuario no tiene privilegios suficientes o objeto no encontrado: VET0_.BUSINESS_HOURS in statement [select vet0_.id as id1_6_, vet0_.first_name as first_na2_6_, vet0_.last_name as last_nam3_6_, vet0_.business_hours as business4_6_, vet0_.telephone as telephon5_6_ from vets vet0_]
+	at org.springframework.samples.petclinic.service.ClinicServiceTests.shouldFindVets(ClinicServiceTests.java:188)
+Caused by: org.hsqldb.HsqlException: usuario no tiene privilegios suficientes o objeto no encontrado: VET0_.BUSINESS_HOURS
+	at org.springframework.samples.petclinic.service.ClinicServiceTests.shouldFindVets(ClinicServiceTests.java:188)
+
