@@ -1,0 +1,12 @@
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+
+<body th:object="${pet}">
+
+  <h2>Álbum</h2>
+  <h2 th:text="${pet.name}"></h2>
+  <a class="btn btn-default">Agregar foto</a>
+
+  <h2>Fotos</h2>
+</body>
+</html>

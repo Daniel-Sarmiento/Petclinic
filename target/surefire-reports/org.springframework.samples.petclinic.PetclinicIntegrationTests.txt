@@ -1,14 +1,10 @@
 -------------------------------------------------------------------------------
 Test set: org.springframework.samples.petclinic.PetclinicIntegrationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 39.275 s <<< FAILURE! - in org.springframework.samples.petclinic.PetclinicIntegrationTests
-testFindAll(org.springframework.samples.petclinic.PetclinicIntegrationTests)  Time elapsed: 0.381 s  <<< ERROR!
-org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [select vet0_.id as id1_6_, vet0_.first_name as first_na2_6_, vet0_.last_name as last_nam3_6_, vet0_.business_hours as business4_6_, vet0_.telephone as telephon5_6_ from vets vet0_]; nested exception is org.hibernate.exception.SQLGrammarException: could not prepare statement
-	at org.springframework.samples.petclinic.PetclinicIntegrationTests.testFindAll(PetclinicIntegrationTests.java:36)
-Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement
-	at org.springframework.samples.petclinic.PetclinicIntegrationTests.testFindAll(PetclinicIntegrationTests.java:36)
-Caused by: java.sql.SQLSyntaxErrorException: usuario no tiene privilegios suficientes o objeto no encontrado: VET0_.BUSINESS_HOURS in statement [select vet0_.id as id1_6_, vet0_.first_name as first_na2_6_, vet0_.last_name as last_nam3_6_, vet0_.business_hours as business4_6_, vet0_.telephone as telephon5_6_ from vets vet0_]
-	at org.springframework.samples.petclinic.PetclinicIntegrationTests.testFindAll(PetclinicIntegrationTests.java:36)
-Caused by: org.hsqldb.HsqlException: usuario no tiene privilegios suficientes o objeto no encontrado: VET0_.BUSINESS_HOURS
-	at org.springframework.samples.petclinic.PetclinicIntegrationTests.testFindAll(PetclinicIntegrationTests.java:36)
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 23.457 s <<< FAILURE! - in org.springframework.samples.petclinic.PetclinicIntegrationTests
+testFindAll(org.springframework.samples.petclinic.PetclinicIntegrationTests)  Time elapsed: 0.019 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+Caused by: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+Caused by: org.hibernate.HibernateException: Access to DialectResolutionInfo cannot be null when 'hibernate.dialect' not set
 

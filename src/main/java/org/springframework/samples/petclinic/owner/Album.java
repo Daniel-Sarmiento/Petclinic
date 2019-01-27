@@ -31,10 +31,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.samples.petclinic.model.BaseEntity;
 import org.springframework.samples.petclinic.model.NamedEntity;
 import org.springframework.samples.petclinic.visit.Visit;
 
@@ -46,69 +48,28 @@ import org.springframework.samples.petclinic.visit.Visit;
  * @author Sam Brannen
  */
 @Entity
-@Table(name = "pets")
-public class Pet extends NamedEntity {
-
-    @Column(name = "birth_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate birthDate;
-
+@Table(name = "album")
+public class Album extends BaseEntity{
+    
     @ManyToOne
-    @JoinColumn(name = "type_id")
-    private PetType type;
-
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private Owner owner;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "petId", fetch = FetchType.EAGER)//Preguntar aqui
-    private Set<Visit> visits = new LinkedHashSet<>();
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    @JoinColumn(name = "pet_id")
+    private Pet pet; 
+    
+    @Column(name = "photo")
+    @NotEmpty
+    private String photo;
+    
+    public void setPhoto(String photo){
+        this.photo=photo;
     }
-
-    public LocalDate getBirthDate() {
-        return this.birthDate;
+    public String getPhoto(){
+        return this.photo;
     }
-
-    public PetType getType() {
-        return this.type;
+    
+    public void setPet(Pet pet){
+        this.pet=pet;
     }
-
-    public void setType(PetType type) {
-        this.type = type;
+    public Pet getPet(){
+        return this.pet;
     }
-
-    public Owner getOwner() {
-        return this.owner;
-    }
-
-    protected void setOwner(Owner owner) {
-        this.owner = owner;
-    }
-
-    protected Set<Visit> getVisitsInternal() {
-        if (this.visits == null) {
-            this.visits = new HashSet<>();
-        }
-        return this.visits;
-    }
-
-    protected void setVisitsInternal(Set<Visit> visits) {
-        this.visits = visits;
-    }
-
-    public List<Visit> getVisits() {
-        List<Visit> sortedVisits = new ArrayList<>(getVisitsInternal());
-        PropertyComparator.sort(sortedVisits,
-                new MutableSortDefinition("date", false, false));
-        return Collections.unmodifiableList(sortedVisits);
-    }
-
-    public void addVisit(Visit visit) {
-        getVisitsInternal().add(visit);
-        visit.setPetId(this.getId());
-    }
-
 }

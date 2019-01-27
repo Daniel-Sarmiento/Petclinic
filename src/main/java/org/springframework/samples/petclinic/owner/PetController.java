@@ -39,10 +39,12 @@ class PetController {
     private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
     private final PetRepository pets;
     private final OwnerRepository owners;
+    private final AlbumRepository albums;
 
-    public PetController(PetRepository pets, OwnerRepository owners) {
+    public PetController(PetRepository pets, OwnerRepository owners, AlbumRepository albums) {
         this.pets = pets;
         this.owners = owners;
+        this.albums = albums;
     }
 
     @ModelAttribute("types")
@@ -108,6 +110,22 @@ class PetController {
         }
     }
     
+    @GetMapping("/pets/{petId}/album")
+    public String verAlbum(@PathVariable("petId") int petId, Map<String, Object> model) {
+        Pet pet = this.pets.findById(petId);
+        model.put("pet", pet);
+        return "album/albumMascosta";
+    }
+    
+    @PostMapping("/pets/{petId}/photo/new")
+    public String processNewVisitForm(@Valid Album album, BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/owners/{ownerId}";
+        } else {
+            this.albums.save(album);
+            return "album/albumMascosta";
+        }
+    }
     //@GetMapping("/reportaje")
     //public String mostrarPets(Map<String, Object>model){
     //    Collection<Pet> pet1 = this.pets.findAll();
