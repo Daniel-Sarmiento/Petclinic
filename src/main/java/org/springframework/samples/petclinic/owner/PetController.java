@@ -117,13 +117,13 @@ class PetController {
         return "album/albumMascosta";
     }
     
-    @PostMapping("/pets/{petId}/photo/new")
-    public String processNewVisitForm(@Valid Album album, BindingResult result) {
+    @PostMapping("/pets/{petId}/album")
+    public String processNewPhoto(@Valid Album album, BindingResult result) {
         if (result.hasErrors()) {
             return "redirect:/owners/{ownerId}";
         } else {
             this.albums.save(album);
-            return "album/albumMascosta";
+            return "redirect:/owners/{ownerId}/pets/{petId}/album";
         }
     }
     //@GetMapping("/reportaje")

@@ -51,9 +51,8 @@ import org.springframework.samples.petclinic.visit.Visit;
 @Table(name = "album")
 public class Album extends BaseEntity{
     
-    @ManyToOne
-    @JoinColumn(name = "pet_id")
-    private Pet pet; 
+    @Column(name = "pet_id")
+    private Integer petId;
     
     @Column(name = "photo")
     @NotEmpty
@@ -66,10 +65,11 @@ public class Album extends BaseEntity{
         return this.photo;
     }
     
-    public void setPet(Pet pet){
-        this.pet=pet;
+    public Integer getPetId() {
+        return this.petId;
     }
-    public Pet getPet(){
-        return this.pet;
+
+    public void setPetId(Integer petId) {
+        this.petId = petId;
     }
 }

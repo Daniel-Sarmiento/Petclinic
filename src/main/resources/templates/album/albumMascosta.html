@@ -4,9 +4,22 @@
 <body th:object="${pet}">
 
   <h2>Álbum</h2>
-  <h2 th:text="${pet.name}"></h2>
-  <a class="btn btn-default">Agregar foto</a>
+  <h2 th:text="${pet.id}"></h2>
+  
+  <form th:object="${album}" class="form-horizontal" method="post">
+    <div class="form-group has-feedback">
+      <input type="hidden" name="petId" th:value="14" />
+    </div>
 
-  <h2>Fotos</h2>
+    <div class="form-group">
+      <div>
+        <input type="hidden" name="photo" th:value="Hola" />
+        <button class="btn btn-default" type="submit">Agregar foto</button>
+      </div>
+    </div>
+  </form>
+  
+    <h2>Fotos</h2>  
+
 </body>
 </html>
