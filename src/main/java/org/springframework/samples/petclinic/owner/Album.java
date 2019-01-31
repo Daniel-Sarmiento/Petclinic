@@ -39,6 +39,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.samples.petclinic.model.BaseEntity;
 import org.springframework.samples.petclinic.model.NamedEntity;
 import org.springframework.samples.petclinic.visit.Visit;
+import org.springframework.samples.petclinic.owner.Pet;
 
 /**
  * Simple business object representing a pet.

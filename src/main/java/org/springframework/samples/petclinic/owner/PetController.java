@@ -47,6 +47,15 @@ class PetController {
         this.albums = albums;
     }
 
+   @ModelAttribute("album")
+    public Album loadPetWithVisit(@PathVariable("petId") int petId, Map<String, Object> model) {
+        Pet pet = this.pets.findById(petId);
+        model.put("pet", pet);
+        Album album = new Album();
+        pet.addPhoto(album);
+        return album;
+    }
+    
     @ModelAttribute("types")
     public Collection<PetType> populatePetTypes() {
         return this.pets.findPetTypes();

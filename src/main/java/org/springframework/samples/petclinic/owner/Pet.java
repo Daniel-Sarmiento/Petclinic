@@ -61,10 +61,10 @@ public class Pet extends NamedEntity {
     @JoinColumn(name = "owner_id")
     private Owner owner;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "petId", fetch = FetchType.EAGER)//Preguntar aqui
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "petId", fetch = FetchType.EAGER)
     private Set<Visit> visits = new LinkedHashSet<>();
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "petId", fetch = FetchType.EAGER)//Preguntar aqui
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "petId", fetch = FetchType.EAGER)
     private Set<Album> album = new LinkedHashSet<>();
     
     public void setBirthDate(LocalDate birthDate) {
@@ -119,10 +119,22 @@ public class Pet extends NamedEntity {
                 new MutableSortDefinition("date", false, false));
         return Collections.unmodifiableList(sortedVisits);
     }
-
+    
+    public List<Album> getAlbum() {
+        List<Album> sortedAlbum = new ArrayList<>(getAlbumInternal());
+        PropertyComparator.sort(sortedAlbum,
+                new MutableSortDefinition("date", false, false));
+        return Collections.unmodifiableList(sortedAlbum);
+    }
+        
     public void addVisit(Visit visit) {
         getVisitsInternal().add(visit);
         visit.setPetId(this.getId());
+    }
+    
+    public void addPhoto(Album album) {
+        getAlbumInternal().add(album);
+        album.setPetId(this.getId());
     }
 
 }
