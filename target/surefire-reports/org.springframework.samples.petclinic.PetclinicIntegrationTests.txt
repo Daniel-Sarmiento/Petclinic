@@ -1,14 +1,12 @@
 -------------------------------------------------------------------------------
 Test set: org.springframework.samples.petclinic.PetclinicIntegrationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 39.275 s <<< FAILURE! - in org.springframework.samples.petclinic.PetclinicIntegrationTests
-testFindAll(org.springframework.samples.petclinic.PetclinicIntegrationTests)  Time elapsed: 0.381 s  <<< ERROR!
-org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [select vet0_.id as id1_6_, vet0_.first_name as first_na2_6_, vet0_.last_name as last_nam3_6_, vet0_.business_hours as business4_6_, vet0_.telephone as telephon5_6_ from vets vet0_]; nested exception is org.hibernate.exception.SQLGrammarException: could not prepare statement
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 19.475 s <<< FAILURE! - in org.springframework.samples.petclinic.PetclinicIntegrationTests
+testFindAll(org.springframework.samples.petclinic.PetclinicIntegrationTests)  Time elapsed: 0.406 s  <<< ERROR!
+org.springframework.dao.InvalidDataAccessResourceUsageException: could not extract ResultSet; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not extract ResultSet
 	at org.springframework.samples.petclinic.PetclinicIntegrationTests.testFindAll(PetclinicIntegrationTests.java:36)
-Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement
+Caused by: org.hibernate.exception.SQLGrammarException: could not extract ResultSet
 	at org.springframework.samples.petclinic.PetclinicIntegrationTests.testFindAll(PetclinicIntegrationTests.java:36)
-Caused by: java.sql.SQLSyntaxErrorException: usuario no tiene privilegios suficientes o objeto no encontrado: VET0_.BUSINESS_HOURS in statement [select vet0_.id as id1_6_, vet0_.first_name as first_na2_6_, vet0_.last_name as last_nam3_6_, vet0_.business_hours as business4_6_, vet0_.telephone as telephon5_6_ from vets vet0_]
-	at org.springframework.samples.petclinic.PetclinicIntegrationTests.testFindAll(PetclinicIntegrationTests.java:36)
-Caused by: org.hsqldb.HsqlException: usuario no tiene privilegios suficientes o objeto no encontrado: VET0_.BUSINESS_HOURS
+Caused by: java.sql.SQLSyntaxErrorException: Table 'petclinic.vets' doesn't exist
 	at org.springframework.samples.petclinic.PetclinicIntegrationTests.testFindAll(PetclinicIntegrationTests.java:36)
 
