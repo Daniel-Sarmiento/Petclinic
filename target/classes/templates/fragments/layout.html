@@ -68,6 +68,16 @@
                       <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
                       <span>Error</span>
                   </li>
+                                 
+                  <li th:replace="::menuItem ('/userListView','usersListView','Usuarios','user','Usuarios')">
+                      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                      <span>Users</span>
+                  </li>
+                  
+                  <li th:replace="::menuItem ('/reportListView','reportListView','Reporte','th-list','Reporte de Usuarios')">
+                      <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                      <span>Users</span>
+                  </li>
   
               </ul>
           </div>

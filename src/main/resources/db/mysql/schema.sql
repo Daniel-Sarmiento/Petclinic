@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS vets (
   id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   first_name VARCHAR(30),
   last_name VARCHAR(30),
-  telephone VARCHAR(30)
-  business_hours VARCHAR(30)
+  telephone VARCHAR(30),
+  business_hours VARCHAR(30),
   INDEX(last_name)
 ) engine=InnoDB;
 
@@ -73,3 +73,13 @@ CREATE TABLE IF NOT EXISTS medicaments(
   presentacion VARCHAR(80),
   INDEX(nombre)
 ) engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS users(
+id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+user_name VARCHAR(80),
+password VARCHAR(80),
+nombre VARCHAR(80),
+activo INT(1),
+cp INT(5),
+municipio VARCHAR(100),
+) engine=InnoDB
