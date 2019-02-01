@@ -39,7 +39,7 @@ class UsersController {
         String entero=ws.getMunicipio();
         String resultado ="";
         char compare = 0;
-for (int i = 0; i < entero.length(); i++) {
+                    for (int i = 0; i < entero.length(); i++) {
 			switch(entero.charAt(i)){
 				case '¡':
 					resultado = resultado + "á";
@@ -56,33 +56,23 @@ for (int i = 0; i < entero.length(); i++) {
 				case 'Ã':
 				break;
 				default:
-					resultado = resultado + entero.charAt(i);
-						
+					resultado = resultado + entero.charAt(i);		
 			      }
 			
 		}
         System.out.println("El char a comparar: " + resultado);
-        if(!resultado.equals(user.getMunicipio())){
-            user.setMunicipio(resultado);
-        }
-        String passwd = "";
-                PasswordEncoder encoder = new BCryptPasswordEncoder();
-            for (int i = 0; i < 5; i++) {
-      // "123456" - plain text - user input from user interface
-      passwd = encoder.encode(user.getPassword());
 
-      // passwd - password from database
-      System.out.println(passwd); // print hash
+      String passwd = "";
+      PasswordEncoder encoder = new BCryptPasswordEncoder();
 
-      // true for all 5 iteration
-      System.out.println(encoder.matches(user.getPassword(), passwd));
-    }
-            user.setPassword(passwd);
-        if(result.hasErrors()) {
+      if(resultado.equals(user.getMunicipio())){
+        passwd = encoder.encode(user.getPassword());
+        user.setPassword(passwd); 
+        this.users.save(user);
+        return "redirect:/userListView";
+      }else{
+        result.rejectValue("cp", "novalid");
             return VIEWS_USERS_CREATE_OR_UPDATE_FORM;
-        } else {
-            this.users.save(user);
-            return "redirect:/users/" + user.getId();
         }
     }
     
