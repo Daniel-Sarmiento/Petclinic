@@ -20,7 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author Daniel Sarmiento
  */
 @Entity
-@Table(name = "reportesLogin")
+@Table(name = "reporteslogin")
 public class ReporteLogin {
     
     @Id

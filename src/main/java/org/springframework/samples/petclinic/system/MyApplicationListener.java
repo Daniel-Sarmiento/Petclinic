@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Daniel Sarmiento
  */
-@Component
+//@Component
 public class MyApplicationListener implements ApplicationListener{
     
     @Override
@@ -35,6 +35,7 @@ public class MyApplicationListener implements ApplicationListener{
             System.out.println(userName);
             reporteLogin.setUsername((String) userName);
             reporteLogin.setDescripcion("Inicio de sesion fallido");
+
         
         } else if(event instanceof AuthenticationSuccessEvent) {
             

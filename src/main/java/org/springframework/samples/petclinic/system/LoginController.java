@@ -5,8 +5,15 @@
  */
 package org.springframework.samples.petclinic.system;
 
+import java.time.LocalDate;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Bean;
+import org.springframework.samples.petclinic.vet.Vets;
+import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**
@@ -23,6 +32,12 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class LoginController {
+    
+    private final ReporteLoginRepository repositoryReporteLogin;
+    
+    public LoginController(ReporteLoginRepository repositoryReporteLogin){
+        this.repositoryReporteLogin = repositoryReporteLogin;
+    }
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(@RequestParam(value = "error", required = false) String error,
@@ -47,5 +62,50 @@ public class LoginController {
         }
         return "redirect:/login?logout=true";
     }
+    
+    @GetMapping("/reportelogins")
+    public String showVetList(Map<String, Object> model) {
+        ReportesLogin reportesLogin = new ReportesLogin();               
+        reportesLogin.getReportesLoginList().addAll(this.repositoryReporteLogin.findAll());
+        model.put("reporteslogin", reportesLogin);
+        return "reportesLogin";
+    }
+    
+    @GetMapping({ "/reporteslogin.xml" })
+    public @ResponseBody ReportesLogin showResourcesReporteLoginList() {
+        ReportesLogin reportesLogin = new ReportesLogin();
+        reportesLogin.getReportesLoginList().addAll(this.repositoryReporteLogin.findAll());
+        return reportesLogin;
+    }
+    
+   
+    @Bean 
+    public  ApplicationListener < AuthenticationSuccessEvent >  onSuccessListener () {
+         return ( AuthenticationSuccessEvent event ) -> {
+            ReporteLogin reporteLogin = new ReporteLogin();
+            
+            reporteLogin.setDate(LocalDate.now());
+            String userName = event.getAuthentication().getName();
+            reporteLogin.setUsername(userName);
+            reporteLogin.setDescripcion("Inicio de sesión Exitoso");
+            this.repositoryReporteLogin.save(reporteLogin);
+            System.out.println ( " Yeah.. " + userName );
+        };
+    }
+
+    @Bean 
+    public  ApplicationListener < AuthenticationFailureBadCredentialsEvent >  onBadCredentialsListener () {
+         return ( AuthenticationFailureBadCredentialsEvent event) -> {
+            ReporteLogin reporteLogin = new ReporteLogin();
+            
+            reporteLogin.setDate(LocalDate.now());
+            Object userName = event.getAuthentication().getPrincipal();
+            reporteLogin.setUsername((String) userName);
+            reporteLogin.setDescripcion("Inicio de sesión Fallido");
+            this.repositoryReporteLogin.save(reporteLogin);
+            System.out.println ( " Oh no ... " + userName );
+        };
+    }
+    
     
 }
