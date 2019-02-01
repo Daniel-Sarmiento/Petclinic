@@ -122,8 +122,7 @@ public class Pet extends NamedEntity {
     
     public List<Album> getAlbum() {
         List<Album> sortedAlbum = new ArrayList<>(getAlbumInternal());
-        PropertyComparator.sort(sortedAlbum,
-                new MutableSortDefinition("date", false, false));
+        PropertyComparator.sort(sortedAlbum,new MutableSortDefinition("date", false, false));           
         return Collections.unmodifiableList(sortedAlbum);
     }
         
@@ -133,8 +132,10 @@ public class Pet extends NamedEntity {
     }
     
     public void addPhoto(Album album) {
-        getAlbumInternal().add(album);
-        album.setPetId(this.getId());
+        if(album.getPhoto()!= null){
+            getAlbumInternal().add(album);
+            album.setPetId(this.getId());
+        }
     }
 
 }

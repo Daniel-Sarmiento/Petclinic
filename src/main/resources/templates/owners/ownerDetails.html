@@ -57,7 +57,7 @@
               <tr>
                 <th th:text="#{visitDate}">Visit Date</th>
                 <th th:text="#{description}">Description</th>
-                <th>Álbum</th>
+                <th><a th:href="@{{ownerId}/pets/{petId}/album(ownerId=${owner.id},petId=${pet.id})}">Ver album</a></th>
               </tr>
             </thead>
             <tr th:each="visit : ${pet.visits}">
@@ -71,8 +71,6 @@
               <td><a
                 th:href="@{{ownerId}/pets/{petId}/visits/new(ownerId=${owner.id},petId=${pet.id})}" th:text="#{addVisit}">Add
                   Visit</a></td>
-              <td><a
-                th:href="@{{ownerId}/pets/{petId}/album(ownerId=${owner.id},petId=${pet.id})}">Ver album</a></td>
             </tr>
           </table>
         </td>
