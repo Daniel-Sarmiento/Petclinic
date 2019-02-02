@@ -6,12 +6,12 @@
 package org.springframework.samples.petclinic.system;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
-import org.springframework.samples.petclinic.vet.Vets;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -85,7 +85,11 @@ public class LoginController {
             ReporteLogin reporteLogin = new ReporteLogin();
             
             reporteLogin.setDate(LocalDate.now());
+            reporteLogin.setHora(LocalDateTime.now());
+            System.out.println(LocalDateTime.now());
             String userName = event.getAuthentication().getName();
+            System.out.println(event.getAuthentication().getDetails());
+            System.out.println(event.getAuthentication());
             reporteLogin.setUsername(userName);
             reporteLogin.setDescripcion("Inicio de sesión Exitoso");
             this.repositoryReporteLogin.save(reporteLogin);
@@ -99,7 +103,11 @@ public class LoginController {
             ReporteLogin reporteLogin = new ReporteLogin();
             
             reporteLogin.setDate(LocalDate.now());
+            reporteLogin.setHora(LocalDateTime.now());
+            System.out.println(LocalDateTime.now());
             Object userName = event.getAuthentication().getPrincipal();
+            System.out.println(event.getAuthentication().getDetails());
+            System.out.println(event.getAuthentication());
             reporteLogin.setUsername((String) userName);
             reporteLogin.setDescripcion("Inicio de sesión Fallido");
             this.repositoryReporteLogin.save(reporteLogin);

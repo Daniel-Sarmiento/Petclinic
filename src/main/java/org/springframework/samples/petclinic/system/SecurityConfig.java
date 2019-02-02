@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         .jdbcAuthentication()
         .dataSource(dataSource)
         .usersByUsernameQuery("select username as principal, password as credentials, activo from users where username=?")
-        .authoritiesByUsernameQuery("select username as principal, rol as role from users where username=?").rolePrefix("ROLE_").passwordEncoder(passwordEncoder);
+        .authoritiesByUsernameQuery("select username as principal, rol as role, activo as active from users where username=?").rolePrefix("ROLE_").passwordEncoder(passwordEncoder);
         
         /*
         auth.inMemoryAuthentication()

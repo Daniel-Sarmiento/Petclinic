@@ -6,6 +6,8 @@
 package org.springframework.samples.petclinic.system;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
+import java.util.Date;
 
 /**
  *
@@ -30,6 +33,9 @@ public class ReporteLogin {
     @Column(name = "intent_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
+    
+    @Column(name = "hora")
+    LocalDateTime hora;
     
     @NotEmpty
     @Column(name = "username")
@@ -54,6 +60,15 @@ public class ReporteLogin {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+    public LocalDateTime getHora() {
+        return hora;
+    }
+
+    public void setHora(LocalDateTime hora) {
+        this.hora = hora;
+    }
+       
 
     public String getUsername() {
         return username;
