@@ -1,12 +1,11 @@
 -------------------------------------------------------------------------------
 Test set: org.springframework.samples.petclinic.PetclinicIntegrationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 19.475 s <<< FAILURE! - in org.springframework.samples.petclinic.PetclinicIntegrationTests
-testFindAll(org.springframework.samples.petclinic.PetclinicIntegrationTests)  Time elapsed: 0.406 s  <<< ERROR!
-org.springframework.dao.InvalidDataAccessResourceUsageException: could not extract ResultSet; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not extract ResultSet
-	at org.springframework.samples.petclinic.PetclinicIntegrationTests.testFindAll(PetclinicIntegrationTests.java:36)
-Caused by: org.hibernate.exception.SQLGrammarException: could not extract ResultSet
-	at org.springframework.samples.petclinic.PetclinicIntegrationTests.testFindAll(PetclinicIntegrationTests.java:36)
-Caused by: java.sql.SQLSyntaxErrorException: Table 'petclinic.vets' doesn't exist
-	at org.springframework.samples.petclinic.PetclinicIntegrationTests.testFindAll(PetclinicIntegrationTests.java:36)
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 21.9 s <<< FAILURE! - in org.springframework.samples.petclinic.PetclinicIntegrationTests
+testFindAll(org.springframework.samples.petclinic.PetclinicIntegrationTests)  Time elapsed: 0.014 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'ownerController' defined in file [C:\Users\Zarazua\Documents\Mantenimiento de software\Corte 1\Petclinic\Petclinic\target\classes\org\springframework\samples\petclinic\owner\OwnerController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'ownerRepository': Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: Failed to create query for method public abstract java.util.Collection org.springframework.samples.petclinic.owner.OwnerRepository.findAll2() throws org.springframework.dao.DataAccessException! No property findAll2 found for type Owner!
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'ownerRepository': Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: Failed to create query for method public abstract java.util.Collection org.springframework.samples.petclinic.owner.OwnerRepository.findAll2() throws org.springframework.dao.DataAccessException! No property findAll2 found for type Owner!
+Caused by: java.lang.IllegalArgumentException: Failed to create query for method public abstract java.util.Collection org.springframework.samples.petclinic.owner.OwnerRepository.findAll2() throws org.springframework.dao.DataAccessException! No property findAll2 found for type Owner!
+Caused by: org.springframework.data.mapping.PropertyReferenceException: No property findAll2 found for type Owner!
 
