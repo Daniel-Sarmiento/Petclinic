@@ -50,20 +50,13 @@ class PetController {
     private final OwnerRepository owners;
     private final AlbumRepository albums;
     private static String uploadDirectory = System.getProperty("user.dir")+"/src/main/resources/static/resources/imagesPets";
+    
     public PetController(PetRepository pets, OwnerRepository owners, AlbumRepository albums) {
         this.pets = pets;
         this.owners = owners;
         this.albums = albums;
     }
 
-   @ModelAttribute("album")
-    public Album loadPetWithVisit(@PathVariable("petId") int petId, Map<String, Object> model) {
-        Pet pet = this.pets.findById(petId);
-        model.put("pet", pet);
-        Album album = new Album();
-        pet.addPhoto(album);
-        return album;
-    }
     
     @ModelAttribute("types")
     public Collection<PetType> populatePetTypes() {
@@ -127,34 +120,7 @@ class PetController {
             return "redirect:/owners/{ownerId}";
         }
     }
-    
-    @GetMapping("/pets/{petId}/album")
-    public String verAlbum(@PathVariable("petId") int petId, Map<String, Object> model) {
-        Pet pet = this.pets.findById(petId);
-        model.put("pet", pet);
-        return "album/albumMascosta";
-    }
-    
-    @PostMapping("/pets/{petId}/album")
-    public String processNewPhoto(@RequestParam("file") MultipartFile[]f,@Valid Album album, BindingResult result) {
-        StringBuilder fileNames = new StringBuilder();
-        if (result.hasErrors()) {
-            return "redirect:/owners/{ownerId}";
-        } else {
-            for(MultipartFile file:f){
-                System.out.println("ARCHIVO: "+file.getOriginalFilename());
-                Path fileNameAndPath = Paths.get(uploadDirectory,file.getOriginalFilename());
-                fileNames.append(file.getOriginalFilename());
-                try {
-                    Files.write(fileNameAndPath, file.getBytes());
-                } catch (IOException ex) {
-                    Logger.getLogger(PetController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            this.albums.save(album);          
-            return "redirect:/owners/{ownerId}/pets/{petId}/album";           
-        }
-    }
+
     //@GetMapping("/reportaje")
     //public String mostrarPets(Map<String, Object>model){
     //    Collection<Pet> pet1 = this.pets.findAll();
