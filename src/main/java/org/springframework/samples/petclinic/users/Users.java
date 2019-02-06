@@ -19,9 +19,9 @@ import org.springframework.samples.petclinic.model.BaseEntity;
 @Entity
 @Table(name = "users")
 public class Users extends BaseEntity{
-    @Column(name = "user_name")
+    @Column(name = "username")
     @NotEmpty
-    private String user_name;
+    private String username;
     
     @Column(name = "password")
     @NotEmpty
@@ -44,11 +44,11 @@ public class Users extends BaseEntity{
     private String municipio;
 
     public String getUser_name() {
-        return user_name;
+        return username;
     }
 
     public void setUser_name(String user_name) {
-        this.user_name = user_name;
+        this.username = user_name;
     }
 
     public String getPassword() {
@@ -100,7 +100,7 @@ public class Users extends BaseEntity{
         return new ToStringCreator(this)
                 
                 .append("id",this.getId()).append("new", this.isNew())
-                .append("user_name", this.user_name)
+                .append("user_name", this.username)
                 .append("password",this.password)
                 .append("nombre",this.nombre)
                 .append("activo",this.activo)

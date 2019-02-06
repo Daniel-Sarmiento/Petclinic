@@ -26,26 +26,6 @@ public class GetWs {
     public CodigoPostal cp(){
         Gson gson = new Gson();
         CodigoPostal cp = gson.fromJson(resultado,CodigoPostal.class);
-        System.out.println("Municipio: " + cp.getMunicipio());
-        String entero = cp.getMunicipio();
-        System.out.println("Entero: " + entero.charAt(0));
-        char[] c = new char[entero.length()];
-        int[] a = new int[entero.length()];
-        ArrayList<Character> cara = new ArrayList<>();
-        ArrayList<Integer> ascii = new ArrayList<>();
-        for (int i = 0; i < entero.length(); i++) {
-            System.out.println("Posicion: "+ i);
-              c[i]=entero.charAt(i);
-              System.out.println("Es caracter " + i + " es: " + c[i]);
-              a[i]= (int) c[i];
-              System.out.println("Es ascii " + i + " es: " + a[i]);
-        }
-        System.out.println("El caracter cero es T por lo tanto aqui hay:" + Character.toString((char)a[0]));
-        String full = "";
-        for (int i = 0; i < a.length; i++) {
-            full+=Character.toString((char)a[i]);
-        }
-        System.out.println("PUES FULL Y TODO PENDEJO: " + full);
         return null;
     }
     

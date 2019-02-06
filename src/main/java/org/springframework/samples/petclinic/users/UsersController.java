@@ -30,16 +30,15 @@ class UsersController {
     
     @PostMapping("/users/new")
     public String proccessCreationForm(@Valid Users user, BindingResult result){
-        //user.getCp().equals(ws.setCp(ser.getCp().getMunicipio()))
         GetWs  ws = new GetWs();
-        
         int primerChar;
         ws.setWs(user.getCp());
         ws.cp();
         String entero=ws.getMunicipio();
+        System.out.println("Entero: " +  entero);
         String resultado ="";
         char compare = 0;
-                    for (int i = 0; i < entero.length(); i++) {
+for (int i = 0; i < entero.length(); i++) {
 			switch(entero.charAt(i)){
 				case '¡':
 					resultado = resultado + "á";
@@ -56,21 +55,27 @@ class UsersController {
 				case 'Ã':
 				break;
 				default:
-					resultado = resultado + entero.charAt(i);		
+					resultado = resultado + entero.charAt(i);
+						
 			      }
 			
 		}
         System.out.println("El char a comparar: " + resultado);
-
-      String passwd = "";
-      PasswordEncoder encoder = new BCryptPasswordEncoder();
-
-      if(resultado.equals(user.getMunicipio())){
+        if(!resultado.equals(user.getMunicipio())){
+            result.rejectValue("cp", "novalid");
+            return VIEWS_USERS_CREATE_OR_UPDATE_FORM;
+        }
+        String passwd = "";
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
         passwd = encoder.encode(user.getPassword());
-        user.setPassword(passwd); 
+        user.setPassword(passwd);
+        
+        if(resultado.equals(user.getMunicipio())){
+        passwd = encoder.encode(user.getPassword());
+        user.setPassword(passwd);
         this.users.save(user);
         return "redirect:/userListView";
-      }else{
+        }else{
         result.rejectValue("cp", "novalid");
             return VIEWS_USERS_CREATE_OR_UPDATE_FORM;
         }
@@ -101,12 +106,12 @@ class UsersController {
     
     @PostMapping("/users/edit/{usersId}")
     public String processUpdateUsersForm(@Valid Users user, BindingResult result, @PathVariable("usersId") int usersId) {
-                GetWs  ws = new GetWs();
-        
+        GetWs  ws = new GetWs();
         int primerChar;
         ws.setWs(user.getCp());
         ws.cp();
         String entero=ws.getMunicipio();
+        System.out.println("Entero: " +  entero);
         String resultado ="";
         char compare = 0;
 for (int i = 0; i < entero.length(); i++) {
@@ -133,18 +138,23 @@ for (int i = 0; i < entero.length(); i++) {
 		}
         System.out.println("El char a comparar: " + resultado);
         if(!resultado.equals(user.getMunicipio())){
-            user.setMunicipio(resultado);
+            result.rejectValue("cp", "novalid");
+            return VIEWS_USERS_CREATE_OR_UPDATE_FORM;
         }
         String passwd = "";
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         passwd = encoder.encode(user.getPassword());
         user.setPassword(passwd);
-        if (result.hasErrors()) {
+        
+        if(resultado.equals(user.getMunicipio())){
+        passwd = encoder.encode(user.getPassword());
+        user.setPassword(passwd); 
+        user.setId(usersId);
+        this.users.save(user);
+        return "redirect:/userListView";
+        }else{
+        result.rejectValue("cp", "novalid");
             return VIEWS_USERS_CREATE_OR_UPDATE_FORM;
-        } else {
-            user.setId(usersId);
-            this.users.save(user);
-            return "redirect:/userListView";
         }
     }
     
