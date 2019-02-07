@@ -15,6 +15,11 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -25,7 +30,11 @@ import org.*;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.samples.petclinic.vet.Vet;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author Juergen Hoeller
@@ -39,12 +48,16 @@ class PetController {
     private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
     private final PetRepository pets;
     private final OwnerRepository owners;
-
-    public PetController(PetRepository pets, OwnerRepository owners) {
+    private final AlbumRepository albums;
+    private static String uploadDirectory = System.getProperty("user.dir")+"/src/main/resources/static/resources/imagesPets";
+    
+    public PetController(PetRepository pets, OwnerRepository owners, AlbumRepository albums) {
         this.pets = pets;
         this.owners = owners;
+        this.albums = albums;
     }
 
+    
     @ModelAttribute("types")
     public Collection<PetType> populatePetTypes() {
         return this.pets.findPetTypes();
@@ -107,7 +120,7 @@ class PetController {
             return "redirect:/owners/{ownerId}";
         }
     }
-    
+
     //@GetMapping("/reportaje")
     //public String mostrarPets(Map<String, Object>model){
     //    Collection<Pet> pet1 = this.pets.findAll();

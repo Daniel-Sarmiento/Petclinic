@@ -144,13 +144,14 @@ for (int i = 0; i < entero.length(); i++) {
         }
         String passwd = "";
         PasswordEncoder encoder = new BCryptPasswordEncoder();
-        passwd = encoder.encode(user.getPassword());
-        user.setPassword(passwd);
+        //passwd = encoder.encode(user.getPassword());
+        //user.setPassword(passwd);
         
         if(resultado.equals(user.getMunicipio())){
         passwd = encoder.encode(user.getPassword());
         user.setPassword(passwd); 
         user.setId(usersId);
+        user.setRol("ADMIN");
         this.users.save(user);
         return "redirect:/userListView";
         }else{

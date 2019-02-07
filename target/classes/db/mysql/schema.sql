@@ -11,7 +11,7 @@ USE petclinic;
 CREATE TABLE IF NOT EXISTS users (
     id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
+    password VARCHAR(80) NOT NULL,
     nombre VARCHAR(80),
     activo BOOLEAN NOT NULL,
     cp INT(5),
@@ -27,19 +27,12 @@ CREATE TABLE IF NOT EXISTS reporteslogin (
   descripcion VARCHAR(255)
 )engine=InnoDB;
 
-CREATE TABLE IF NOT EXISTS album (
-  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  pet_id INT(4) UNSIGNED NOT NULL,
-  photo VARCHAR(100),
-  FOREIGN KEY (pet_id) REFERENCES pets(id)
-) engine=InnoDB;
-
 CREATE TABLE IF NOT EXISTS vets (
   id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   first_name VARCHAR(30),
   last_name VARCHAR(30),
-  telephone VARCHAR(30)
-  business_hours VARCHAR(30)
+  telephone VARCHAR(30),
+  business_hours VARCHAR(30),
   INDEX(last_name)
 ) engine=InnoDB;
 
@@ -98,4 +91,11 @@ CREATE TABLE IF NOT EXISTS medicaments(
   ingredientes VARCHAR(80),
   presentacion VARCHAR(80),
   INDEX(nombre)
+) engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS album (
+  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  pet_id INT(4) UNSIGNED NOT NULL,
+  photo VARCHAR(100),
+  FOREIGN KEY (pet_id) REFERENCES pets(id)
 ) engine=InnoDB;
