@@ -8,20 +8,31 @@ GRANT ALL PRIVILEGES ON petclinic.* TO pc@localhost IDENTIFIED BY 'pc';
 
 USE petclinic;
 
-CREATE TABLE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS users (
     id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_name VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL,
     password VARCHAR(50) NOT NULL,
+    nombre VARCHAR(80),
     activo BOOLEAN NOT NULL,
+    cp INT(5),
+    municipio VARCHAR(100),
     rol VARCHAR(50) NOT NULL
 )engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS reporteslogin (
   id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   intent_date DATE,
+  hora DATETIME,
   username VARCHAR(255),
   descripcion VARCHAR(255)
 )engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS album (
+  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  pet_id INT(4) UNSIGNED NOT NULL,
+  photo VARCHAR(100),
+  FOREIGN KEY (pet_id) REFERENCES pets(id)
+) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS vets (
   id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,

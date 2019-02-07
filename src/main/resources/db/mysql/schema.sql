@@ -12,7 +12,10 @@ CREATE TABLE IF NOT EXISTS users (
     id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     password VARCHAR(50) NOT NULL,
+    nombre VARCHAR(80),
     activo BOOLEAN NOT NULL,
+    cp INT(5),
+    municipio VARCHAR(100),
     rol VARCHAR(50) NOT NULL
 )engine=InnoDB;
 
