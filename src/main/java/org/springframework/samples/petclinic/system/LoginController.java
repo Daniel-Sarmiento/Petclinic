@@ -115,5 +115,23 @@ public class LoginController {
         };
     }
     
+    @Bean 
+    public  ApplicationListener < AuthenticationFailureDisabledEvent >  onFailureDisabled() {
+         return ( AuthenticationFailureDisabledEvent event ) -> {
+            ReporteLogin reporteLogin = new ReporteLogin();
+            
+            reporteLogin.setDate(LocalDate.now());
+            reporteLogin.setHora(LocalDateTime.now());
+            System.out.println(LocalDateTime.now());
+            String userName = event.getAuthentication().getName();
+            System.out.println(event.getAuthentication().getDetails());
+            System.out.println(event.getAuthentication());
+            reporteLogin.setUsername(userName);
+            reporteLogin.setDescripcion("Inicio de sesión Fallido");
+            this.repositoryReporteLogin.save(reporteLogin);
+            System.out.println ( " Disabled " + userName );
+        };
+    }
+    
     
 }
